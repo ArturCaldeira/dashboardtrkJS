@@ -1,7 +1,7 @@
 ## Dashboard TRK Device - Javascript version
 
-##### Para visualizar o dashboard é necessário ter o *NodeJS* instalado. (Faça o download aqui: https://nodejs.org/en/)
-##### Os comandos a seguir podem ser executados utilizando o *cmd* após ter feito a instalação do NodeJS.
++ ##### Para visualizar o dashboard é necessário ter o *NodeJS* instalado. (Faça o download aqui: https://nodejs.org/en/)
++ ##### Os comandos a seguir podem ser executados utilizando o *cmd* após ter feito a instalação do NodeJS.
 + #### É necessário acesso a internet para a primeira instalação.
 + #### Após a instalação do NodeJS, faça o download do projeto clicando no botão no canto superior direito desta página.
 + #### Caso tenha feito o download da versão em zipada, é necessário extrair os arquivos.
