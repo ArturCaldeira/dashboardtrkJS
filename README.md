@@ -4,7 +4,9 @@
 ##### Os comandos a seguir podem ser executados utilizando o *cmd* após ter feito a instalação do NodeJS.
 ##### É necessário acesso a internet para a primeira instalação.
 
-#### 1. Após a instalação, acesse o diretório em que foi feito o download e instale os pacotes necessários com o comando:  
+#### Após a instalação do NodeJS, faça o download do projeto clicando no botão no canto superior direito desta página.
+##### Caso tenha feito o download da versão em zipada, é necessário extrair os arquivos.
+#### 1. Vá até a pasta do projeto e instale os pacotes necessários com o comando:  
 ```npm install```
 ##### Durante a execução desse comando aparecerá alguns avisos na tela.
 ##### Atualmente está demorando cerca de 5 minutos para instalar todos os pacotes, pretendo otimizar isso no futuro.
