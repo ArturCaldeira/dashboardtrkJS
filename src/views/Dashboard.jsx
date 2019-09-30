@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import ChartistGraph from "react-chartist";
+// import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
 
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import { Tasks } from "components/Tasks/Tasks.jsx";
+// import { Tasks } from "components/Tasks/Tasks.jsx";
 import {
   dataPie,
   legendPie,
@@ -27,7 +27,7 @@ Plotly.register([
 ]);
 
 
-const Plot = createPlotlyComponent(Plotly);
+// const Plot = createPlotlyComponent(Plotly);
 
 let temperatureArray = [20];
 let temperatureVar = 20;
@@ -86,6 +86,7 @@ class Dashboard extends Component {
     };
     this.changeTemp = this.changeTemp.bind(this);
     this.getMaxTemp = this.getMaxTemp.bind(this);
+
     // this.onLoadFirst = this.onLoadFirst.bind(this);
   }
   intervalTemp = 0;
@@ -94,10 +95,11 @@ class Dashboard extends Component {
     if (r === 1) {
       if (temperatureVar < 40) {
         temperatureVar++;
-        if (temperatureVar > this.state.temperatureMax)
-        this.setState({
-          temperatureMax: temperatureVar
-        })
+        if (temperatureVar > this.state.temperatureMax) {
+          this.setState({
+            temperatureMax: temperatureVar
+          });
+        }
       }
     }
     else {
@@ -130,8 +132,8 @@ class Dashboard extends Component {
     };
     // console.log(r);
   }
-  getMaxTemp = e => {
-    return this.state.temperatureMax;
+  getMaxTemp = x => {
+    return Math.max(temperatureArray);
   }
 
   componentDidMount() {
@@ -148,7 +150,9 @@ class Dashboard extends Component {
       type: "line",
       marker: { color: 'blue' }
     }])
-
+    this.setState({
+      temperatureMax: Math.max(...temperatureArray)
+    });
     Plotly.plot("graphmap", dataMap, layoutMap);
     this.intervalTemp = setInterval(this.changeTemp, 1000)
     this.changeTemp();
@@ -215,7 +219,7 @@ class Dashboard extends Component {
                     </Col>
                     <Col xs={7}>
                       <div className="numbers">
-                        <p>Max Temperature</p>
+                        <p>Max Temp.</p>
                         {this.state.temperatureMax}
                       </div>
                     </Col>
