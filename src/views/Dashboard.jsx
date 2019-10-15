@@ -5,7 +5,7 @@ import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 // import { Tasks } from "components/Tasks/Tasks.jsx";
-import {
+/*import {
   dataPie,
   legendPie,
   dataSales,
@@ -17,7 +17,9 @@ import {
   responsiveBar,
   legendBar
 } from "variables/Variables.jsx";
-import createPlotlyComponent from "react-plotly.js/factory";
+import createPlotlyComponent from "react-plotly.js/factory";*/
+
+import { legendPie } from "variables/Variables.jsx"; 
 
 var Plotly = require('plotly.js/lib/core');
 Plotly.register([

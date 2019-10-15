@@ -14,14 +14,14 @@ const dashboardRoutes = [
     icon: "pe-7s-graph",
     component: Dashboard,
     layout: "/admin"
-  },
+  }, /*
   {
     path: "/user",
     name: "User Profile",
     icon: "pe-7s-user",
     component: UserProfile,
     layout: "/admin"
-  },
+  }, 
   {
     path: "/table",
     name: "Table List",
@@ -42,21 +42,21 @@ const dashboardRoutes = [
     icon: "pe-7s-science",
     component: Icons,
     layout: "/admin"
-  },
+  }, */
   {
     path: "/maps",
-    name: "Maps",
+    name: "Map",
     icon: "pe-7s-map-marker",
     component: Maps,
     layout: "/admin"
-  },
+  }/*,
   {
     path: "/notifications",
     name: "Notifications",
     icon: "pe-7s-bell",
     component: Notifications,
     layout: "/admin"
-  }
+  }*/
 ];
 
 export default dashboardRoutes;
