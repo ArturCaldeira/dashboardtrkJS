@@ -42,6 +42,16 @@ let graphX = [`${timeNow.getHours()}h${timeNow.getMinutes()}m${timeNow.getSecond
 let timeArray = graphX;
 
 const layoutMap = {
+  autosize: false,
+  width: 250,
+  height: 250,
+  margin: {
+    l: 50,
+    r: 0,
+    b: 0,
+    t: 0,
+    pad: 0
+  },
   geo: {
     projection: {
       type: 'orthographic',
@@ -66,6 +76,12 @@ const layoutMap = {
       showgrid: true,
       gridcolor: 'rgb(102, 102, 102)'
     }
+  }
+};
+
+const layoutGraph = {
+  margin: {
+    t: 0,
   }
 };
 
@@ -151,7 +167,7 @@ class Dashboard extends Component {
       name: 'Humidity',
       type: "line",
       marker: { color: 'blue' }
-    }])
+    }], layoutGraph)
     this.setState({
       temperatureMax: Math.max(...temperatureArray)
     });

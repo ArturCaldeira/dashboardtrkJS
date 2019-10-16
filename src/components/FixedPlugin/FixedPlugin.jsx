@@ -12,7 +12,7 @@ class FixedPlugin extends Component {
     super(props);
     this.state = {
       classes: "dropdown show-dropdown open",
-      bg_checked: false,
+      bg_checked: true,
       bgImage: this.props.bgImage
     };
   }
