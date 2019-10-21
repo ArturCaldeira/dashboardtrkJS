@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
-
+import axios from "axios";
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 // import { Tasks } from "components/Tasks/Tasks.jsx";
@@ -19,7 +19,7 @@ import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 } from "variables/Variables.jsx";
 import createPlotlyComponent from "react-plotly.js/factory";*/
 
-import { legendPie } from "variables/Variables.jsx"; 
+import { legendPie, apiSimulationGPS, apiSimulationTemp } from "variables/Variables.jsx"; 
 
 var Plotly = require('plotly.js/lib/core');
 Plotly.register([
@@ -32,13 +32,9 @@ Plotly.register([
 // const Plot = createPlotlyComponent(Plotly);
 
 let temperatureArray = [20];
-let temperatureVar = 20;
 let humidityArray = [50];
-let humidityVar = 50;
-let count = 0;
-let r;
-let timeNow = new Date();
-let graphX = [`${timeNow.getHours()}h${timeNow.getMinutes()}m${timeNow.getSeconds()}s`];
+let date1;
+let graphX = [];
 let timeArray = graphX;
 
 const layoutMap = {
@@ -92,7 +88,7 @@ const dataMap = [{
   mode: 'lines',
   line: {
     width: 2,
-    color: 'blue'
+    color: 'danger'
   }
 }];
 
@@ -100,61 +96,101 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      temperatureMax: 20
+      temperatureMax: 0,
+      humidityMax: 0,
+      temperatureMin: -100,
+      humidityMin: -100
     };
     this.changeTemp = this.changeTemp.bind(this);
-    this.getMaxTemp = this.getMaxTemp.bind(this);
+    this.queryAPIGPS = this.queryAPIGPS.bind(this);
+    this.queryAPITemp = this.queryAPITemp.bind(this);
 
     // this.onLoadFirst = this.onLoadFirst.bind(this);
   }
-  intervalTemp = 0;
+  //intervalTemp = 0;
   changeTemp = e => {
-    r = Math.floor(Math.random() * 2) + 1;
-    if (r === 1) {
-      if (temperatureVar < 40) {
-        temperatureVar++;
-        if (temperatureVar > this.state.temperatureMax) {
-          this.setState({
-            temperatureMax: temperatureVar
-          });
-        }
+    // r = Math.floor(Math.random() * 2) + 1;
+    // if (r === 1) {
+    //   if (temperatureVar < 40) {
+    //     temperatureVar++;
+    //     if (temperatureVar > this.state.temperatureMax) {
+    //       this.setState({
+    //         temperatureMax: temperatureVar
+    //       });
+    //     }
+    //   }
+    // }
+    // else {
+    //   if (temperatureVar > -10)
+    //     temperatureVar--;
+    // }
+    // r = Math.floor(Math.random() * 2) + 1;
+    // if (r === 1) {
+    //   if (humidityVar > 40)
+    //     humidityVar--;
+    // } else {
+    //   if (humidityVar < 80)
+    //     humidityVar++;
+    // }
+    console.log(temperatureArray)
+    if(temperatureArray[0] == 20){
+      temperatureArray.shift();
+    for(var i = 1; i <= (apiSimulationTemp.length - 1); i++){
+      if(apiSimulationTemp[i].status1 > (apiSimulationTemp[i - 1].status1 + 10) || apiSimulationTemp[i].status1 < (apiSimulationTemp[i - 1].status1 - 10)) {
+      temperatureArray.push(apiSimulationTemp[i].status1);
       }
+      else {
+        temperatureArray.push(apiSimulationTemp[i-1].status1);
+      }
+      if(apiSimulationTemp[i].status2 > (apiSimulationTemp[i - 1].status2 + 10) || apiSimulationTemp[i].status2 < (apiSimulationTemp[i - 1].status2 - 10)) {
+      humidityArray.push(apiSimulationTemp[i].status2);
+      } 
+      else {
+        humidityArray.push(apiSimulationTemp[i-1].status2);
+      }
+      date1 = (apiSimulationTemp[i].time).slice(16,25)
+      graphX.push(date1);
     }
-    else {
-      if (temperatureVar > -10)
-        temperatureVar--;
-    }
-    r = Math.floor(Math.random() * 2) + 1;
-    if (r === 1) {
-      if (humidityVar > 40)
-        humidityVar--;
-    } else {
-      if (humidityVar < 80)
-        humidityVar++;
-    }
+  }
+    //  console.log(apiSimulationTemp[0].status1);
 
-    temperatureArray.push(temperatureVar);
-    humidityArray.push(humidityVar);
-    timeNow = new Date();
-    graphX = [`${timeNow.getHours()}h${timeNow.getMinutes()}m${timeNow.getSeconds()}s`];
-    timeArray.push(graphX);
-    Plotly.extendTraces('graph1', { y: [[temperatureVar], [humidityVar]], x: [[graphX], [graphX]] }, [0, 1]);
-    count++;
+    // temperatureArray.push(temperatureVar);
+    // humidityArray.push(humidityVar);
+    // timeNow = new Date();
+    // graphX = [`${timeNow.getHours()}h${timeNow.getMinutes()}m${timeNow.getSeconds()}s`];
+    
+    // Plotly.extendTraces('graph1', { y: [[temperatureVar], [humidityVar]], x: [[graphX], [graphX]] }, [0, 1]);
+    // count++;
 
-    if (count > 1200) {
-      Plotly.relayout('graph1', {
-        xaxis: {
-          range: [count - 1200, count]
-        }
-      })
-    };
+    // if (count > 1200) {
+    //   Plotly.relayout('graph1', {
+    //     xaxis: {
+    //       range: [count - 1200, count]
+    //     }
+    //   })
+    // };
     // console.log(r);
   }
-  getMaxTemp = x => {
-    return Math.max(temperatureArray);
-  }
+
+  queryAPIGPS = /* async */ x => {
+    return apiSimulationGPS;
+  };
+
+
+  queryAPITemp =  async x => {
+    let requestpost =  await axios.post("http://54.187.204.12:8080/trk_query", {
+      "id_rasp": "1",
+      "id_sensors": "2",
+      "start_date": "2019-09-25 18:00:53",
+      "end_date": "2019-09-25 19:48:53"
+  });
+  console.log(requestpost);
+}
 
   componentDidMount() {
+    this.changeTemp();
+    this.queryAPITemp();
+
     Plotly.plot('graph1', [{
       y: temperatureArray,
       x: timeArray,
@@ -169,15 +205,18 @@ class Dashboard extends Component {
       marker: { color: 'blue' }
     }], layoutGraph)
     this.setState({
-      temperatureMax: Math.max(...temperatureArray)
+      temperatureMax: Math.max(...temperatureArray),
+      humidityMax: Math.max(...humidityArray),
+      temperatureMin: Math.min(...temperatureArray),
+      humidityMin: Math.min(...humidityArray)
     });
     Plotly.plot("graphmap", dataMap, layoutMap);
-    this.intervalTemp = setInterval(this.changeTemp, 1000)
-    this.changeTemp();
+    // this.intervalTemp = setInterval(this.changeTemp, 1000)
+    // this.changeTemp();
   }
 
   componentWillUnmount() {
-    clearInterval(this.intervalTemp);
+    //clearInterval(this.intervalTemp);
   }
   // onLoadFirst = e => {
   //   Plotly.plot('graph1', [{
@@ -204,15 +243,16 @@ class Dashboard extends Component {
     return legend;
   }
   render() {
+    
     return (
       <div className="content">
         <Grid fluid>
           <Row>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-server text-warning" />}
-                statsText="Load weight"
-                statsValue="XTons"
+                bigIcon={<i className="pe-7s-graph1 text-info" />}
+                statsText="Max Humid."
+                statsValue={this.state.humidityMax + " g/Kg"}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
@@ -220,8 +260,8 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-wallet text-success" />}
-                statsText="Load value?"
-                statsValue="$X"
+                statsText="Min. Humid"
+                statsValue="X g/Kg"
                 statsIcon={<i className="fa fa-calendar-o" />}
                 statsIconText="Last day"
               />
@@ -238,7 +278,7 @@ class Dashboard extends Component {
                     <Col xs={7}>
                       <div className="numbers">
                         <p>Max Temp.</p>
-                        {this.state.temperatureMax}
+                        {this.state.temperatureMax} ºC
                       </div>
                     </Col>
                   </Row>
@@ -254,8 +294,8 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="" />}
-                statsText="?"
-                statsValue="+X"
+                statsText="Min Temp."
+                statsValue="X ºC"
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
@@ -311,7 +351,7 @@ class Dashboard extends Component {
                 content={
                   <div
                     id="chartPreferences"
-                    className="ct-chart ct-perfect-fourth"
+                    className="ct-chart"
                   >
                     <div id="graphmap"></div>
                   </div>

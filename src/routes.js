@@ -2,7 +2,7 @@ import Dashboard from "views/Dashboard.jsx";
 // import UserProfile from "views/UserProfile.jsx";
 // import TableList from "views/TableList.jsx";
 // import Typography from "views/Typography.jsx";
-// import Icons from "views/Icons.jsx";
+import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 //import Notifications from "views/Notifications.jsx";
 // import Upgrade from "views/Upgrade.jsx";
@@ -35,14 +35,14 @@ const dashboardRoutes = [
     icon: "pe-7s-news-paper",
     component: Typography,
     layout: "/admin"
-  },
+  }, */
   {
     path: "/icons",
     name: "Icons",
     icon: "pe-7s-science",
     component: Icons,
     layout: "/admin"
-  }, */
+  }, 
   {
     path: "/maps",
     name: "Map",

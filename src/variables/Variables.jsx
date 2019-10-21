@@ -480,9 +480,468 @@ var dataPie = {
   series: [40, 20, 40]
 };
 var legendPie = {
-  names: ["Open", "Bounce", "Unsubscribe"],
-  types: ["info", "danger", "warning"]
+  names: ["Route"],
+  types: ["info"]
 };
+
+var apiSimulationGPS = [
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-6544444",
+    "status2": "12.2",
+    "status3": "001",
+    "time": "Mon, 23 Sep 2019 17:21:34 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-6544444",
+    "status2": "12.2",
+    "status3": "001",
+    "time": "Mon, 23 Sep 2019 17:21:42 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-6544444",
+    "status2": "12.2",
+    "status3": "001",
+    "time": "Mon, 23 Sep 2019 17:21:43 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-6544444",
+    "status2": "12.2",
+    "status3": "001",
+    "time": "Mon, 23 Sep 2019 17:21:44 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-6544444",
+    "status2": "12.2",
+    "status3": "001",
+    "time": "Mon, 23 Sep 2019 17:21:44 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-6544444",
+    "status2": "12.2",
+    "status3": "001",
+    "time": "Mon, 23 Sep 2019 17:26:10 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-544444",
+    "status2": "-6544444",
+    "status3": "12.2",
+    "time": "Mon, 23 Sep 2019 18:48:22 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-544444",
+    "status2": "-6544444",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 18:48:53 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "001",
+    "status2": "NULL",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 18:49:04 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "001",
+    "status2": "NULL",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 20:09:08 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-544444",
+    "status2": "5",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 20:09:29 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-544444",
+    "status2": "5",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 20:10:11 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "-544444",
+    "status2": "NULL",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 20:10:16 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "NULL",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 20:10:22 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 20:10:32 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "valor3",
+    "time": "Mon, 23 Sep 2019 20:10:39 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "valor3",
+    "time": "Mon, 23 Sep 2019 20:11:02 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "valor3",
+    "time": "Mon, 23 Sep 2019 20:11:03 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "valor3",
+    "time": "Mon, 23 Sep 2019 20:11:03 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "valor3",
+    "time": "Mon, 23 Sep 2019 20:11:03 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "valor3",
+    "time": "Mon, 23 Sep 2019 20:11:54 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "valor3",
+    "time": "Mon, 23 Sep 2019 20:15:44 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor2",
+    "status3": "valor3",
+    "time": "Mon, 23 Sep 2019 20:16:25 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "valor3",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 20:16:34 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "NULL",
+    "status3": "NULL",
+    "time": "Mon, 23 Sep 2019 20:16:39 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 3,
+    "status1": "valor1",
+    "status2": "NULL",
+    "status3": "NULL",
+    "time": "Tue, 24 Sep 2019 22:08:58 GMT"
+  }
+];
+
+var apiSimulationTemp = [
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "23.799999237060547",
+    "status2": "59.79999923706055",
+    "time": "Wed, 25 Sep 2019 18:16:21 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "11.800000190734863",
+    "status2": "3306.699951171875",
+    "time": "Wed, 25 Sep 2019 18:16:44 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "23.5",
+    "status2": "59.900001525878906",
+    "time": "Wed, 25 Sep 2019 18:17:07 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "23.399999618530273",
+    "status2": "59.79999923706055",
+    "time": "Wed, 25 Sep 2019 18:17:30 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "23.299999237060547",
+    "status2": "59.900001525878906",
+    "time": "Wed, 25 Sep 2019 18:17:53 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "23.299999237060547",
+    "status2": "60.099998474121094",
+    "time": "Wed, 25 Sep 2019 18:18:16 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "22.399999618530273",
+    "status2": "68.0",
+    "time": "Wed, 25 Sep 2019 18:28:28 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "23.0",
+    "status2": "60.5",
+    "time": "Wed, 25 Sep 2019 18:46:41 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "22.700000762939453",
+    "status2": "61.0",
+    "time": "Wed, 25 Sep 2019 19:04:14 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "22.899999618530273",
+    "status2": "60.900001525878906",
+    "time": "Wed, 25 Sep 2019 19:04:37 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "21.299999237060547",
+    "status2": "67.4000015258789",
+    "time": "Wed, 25 Sep 2019 20:39:34 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "70.30000305175781",
+    "time": "Wed, 25 Sep 2019 20:39:59 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "70.19999694824219",
+    "time": "Wed, 25 Sep 2019 20:40:14 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "69.80000305175781",
+    "time": "Wed, 25 Sep 2019 20:40:24 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.700000762939453",
+    "status2": "71.4000015258789",
+    "time": "Wed, 25 Sep 2019 20:40:39 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.700000762939453",
+    "status2": "71.5",
+    "time": "Wed, 25 Sep 2019 20:40:48 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.700000762939453",
+    "status2": "71.19999694824219",
+    "time": "Wed, 25 Sep 2019 20:41:03 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.799999237060547",
+    "status2": "70.0",
+    "time": "Wed, 25 Sep 2019 20:41:12 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.799999237060547",
+    "status2": "69.69999694824219",
+    "time": "Wed, 25 Sep 2019 20:41:15 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.799999237060547",
+    "status2": "69.5999984741211",
+    "time": "Wed, 25 Sep 2019 20:41:30 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.799999237060547",
+    "status2": "69.19999694824219",
+    "time": "Wed, 25 Sep 2019 20:41:48 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.700000762939453",
+    "status2": "68.80000305175781",
+    "time": "Wed, 25 Sep 2019 20:41:50 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.700000762939453",
+    "status2": "68.80000305175781",
+    "time": "Wed, 25 Sep 2019 20:42:15 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.700000762939453",
+    "status2": "69.19999694824219",
+    "time": "Wed, 25 Sep 2019 20:42:36 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.700000762939453",
+    "status2": "69.30000305175781",
+    "time": "Wed, 25 Sep 2019 20:42:55 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "69.80000305175781",
+    "time": "Wed, 25 Sep 2019 20:43:24 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "69.0",
+    "time": "Wed, 25 Sep 2019 20:43:45 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "69.0",
+    "time": "Wed, 25 Sep 2019 20:43:51 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "68.9000015258789",
+    "time": "Wed, 25 Sep 2019 20:44:07 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "68.9000015258789",
+    "time": "Wed, 25 Sep 2019 20:44:10 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "68.9000015258789",
+    "time": "Wed, 25 Sep 2019 20:44:13 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.5",
+    "status2": "68.80000305175781",
+    "time": "Wed, 25 Sep 2019 20:44:15 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.5",
+    "status2": "68.80000305175781",
+    "time": "Wed, 25 Sep 2019 20:44:18 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.600000381469727",
+    "status2": "68.80000305175781",
+    "time": "Wed, 25 Sep 2019 20:44:20 GMT"
+  },
+  {
+    "id_rasp": 1,
+    "id_sensors": 2,
+    "status1": "20.5",
+    "status2": "68.69999694824219",
+    "time": "Wed, 25 Sep 2019 20:44:33 GMT"
+  }
+];
 
 // Data for Line Chart
 var dataSales = {
@@ -595,5 +1054,7 @@ module.exports = {
   dataBar,
   optionsBar,
   responsiveBar,
-  legendBar // For charts (Dashboard view)
+  legendBar, // For charts (Dashboard view)
+  apiSimulationGPS,
+  apiSimulationTemp
 };
