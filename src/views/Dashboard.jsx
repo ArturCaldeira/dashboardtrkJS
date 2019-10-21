@@ -19,7 +19,13 @@ import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 } from "variables/Variables.jsx";
 import createPlotlyComponent from "react-plotly.js/factory";*/
 
-import { legendPie, apiSimulationGPS, apiSimulationTemp } from "variables/Variables.jsx"; 
+import { legendPie, apiSimulationGPS, apiSimulationTemp } from "variables/Variables.jsx";
+import { DateTimePicker } from 'react-widgets'
+import Moment from 'moment'; import momentLocalizer from 'react-widgets-moment';
+Moment.locale('en')
+momentLocalizer()
+
+
 
 var Plotly = require('plotly.js/lib/core');
 Plotly.register([
@@ -36,6 +42,9 @@ let humidityArray = [50];
 let date1;
 let graphX = [];
 let timeArray = graphX;
+let apiTemp;
+let tempMaxVar;
+let humidMaxVar;
 
 const layoutMap = {
   autosize: false,
@@ -104,11 +113,14 @@ class Dashboard extends Component {
     this.changeTemp = this.changeTemp.bind(this);
     this.queryAPIGPS = this.queryAPIGPS.bind(this);
     this.queryAPITemp = this.queryAPITemp.bind(this);
+    this.popularArray = this.popularArray.bind(this);
+    this.arredondar = this.arredondar.bind(this);
+    
 
     // this.onLoadFirst = this.onLoadFirst.bind(this);
   }
   //intervalTemp = 0;
-  changeTemp = e => {
+  changeTemp = async e => {
     // r = Math.floor(Math.random() * 2) + 1;
     // if (r === 1) {
     //   if (temperatureVar < 40) {
@@ -132,33 +144,23 @@ class Dashboard extends Component {
     //   if (humidityVar < 80)
     //     humidityVar++;
     // }
-    console.log(temperatureArray)
-    if(temperatureArray[0] == 20){
-      temperatureArray.shift();
-    for(var i = 1; i <= (apiSimulationTemp.length - 1); i++){
-      if(apiSimulationTemp[i].status1 > (apiSimulationTemp[i - 1].status1 + 10) || apiSimulationTemp[i].status1 < (apiSimulationTemp[i - 1].status1 - 10)) {
-      temperatureArray.push(apiSimulationTemp[i].status1);
-      }
-      else {
-        temperatureArray.push(apiSimulationTemp[i-1].status1);
-      }
-      if(apiSimulationTemp[i].status2 > (apiSimulationTemp[i - 1].status2 + 10) || apiSimulationTemp[i].status2 < (apiSimulationTemp[i - 1].status2 - 10)) {
-      humidityArray.push(apiSimulationTemp[i].status2);
-      } 
-      else {
-        humidityArray.push(apiSimulationTemp[i-1].status2);
-      }
-      date1 = (apiSimulationTemp[i].time).slice(16,25)
-      graphX.push(date1);
-    }
-  }
+    apiTemp = await axios.post("http://54.187.204.12:8080/trk_query", {
+      "id_rasp": "1",
+      "id_sensors": "2",
+      "start_date": "2019-09-25 18:00:53",
+      "end_date": "2019-10-25 19:48:53"
+    });
+    apiTemp = apiTemp.data;
+    console.log("array= ");
+    console.log(apiTemp);
+    this.popularArray(apiTemp);
     //  console.log(apiSimulationTemp[0].status1);
 
     // temperatureArray.push(temperatureVar);
     // humidityArray.push(humidityVar);
     // timeNow = new Date();
     // graphX = [`${timeNow.getHours()}h${timeNow.getMinutes()}m${timeNow.getSeconds()}s`];
-    
+
     // Plotly.extendTraces('graph1', { y: [[temperatureVar], [humidityVar]], x: [[graphX], [graphX]] }, [0, 1]);
     // count++;
 
@@ -176,20 +178,34 @@ class Dashboard extends Component {
     return apiSimulationGPS;
   };
 
-
-  queryAPITemp =  async x => {
-    let requestpost =  await axios.post("http://54.187.204.12:8080/trk_query", {
-      "id_rasp": "1",
-      "id_sensors": "2",
-      "start_date": "2019-09-25 18:00:53",
-      "end_date": "2019-09-25 19:48:53"
-  });
-  console.log(requestpost);
+  arredondar = (valor, precisao) => {
+    var multiplicador = Math.pow(10, precisao || 0);
+    return Math.round(valor * multiplicador) / multiplicador;
 }
 
-  componentDidMount() {
-    this.changeTemp();
-    this.queryAPITemp();
+  popularArray = x => {
+    if (temperatureArray[0] === 20) {
+      temperatureArray.shift();
+      for (var i = 1; i <= (x.length - 1); i++) {
+        if (x[i].status1 > (x[i - 1].status1 + 10) || x[i].status1 < (x[i - 1].status1 - 10)) {
+          temperatureArray.push(x[i].status1);
+        }
+        else {
+          temperatureArray.push(x[i - 1].status1);
+        }
+        if (x[i].status2 > (x[i - 1].status2 + 10) || x[i].status2 < (x[i - 1].status2 - 10)) {
+          humidityArray.push(x[i].status2);
+        }
+        else {
+          humidityArray.push(x[i - 1].status2);
+        }
+        date1 = (x[i].time).slice(16, 25)
+        graphX.push(date1);
+      }
+    }
+
+    tempMaxVar = this.arredondar(Math.max(...temperatureArray),1);
+    humidMaxVar = this.arredondar(Math.max(...humidityArray),1);
 
     Plotly.plot('graph1', [{
       y: temperatureArray,
@@ -205,12 +221,22 @@ class Dashboard extends Component {
       marker: { color: 'blue' }
     }], layoutGraph)
     this.setState({
-      temperatureMax: Math.max(...temperatureArray),
-      humidityMax: Math.max(...humidityArray),
-      temperatureMin: Math.min(...temperatureArray),
-      humidityMin: Math.min(...humidityArray)
+      temperatureMax: tempMaxVar,
+      humidityMax: humidMaxVar,
+      temperatureMin: this.arredondar(Math.min(...temperatureArray),1),
+      humidityMin: this.arredondar(Math.min(...humidityArray),1)
     });
     Plotly.plot("graphmap", dataMap, layoutMap);
+  }
+
+  queryAPITemp = async x => {
+    let requestpost = "asdasd";
+    console.log(requestpost)
+    return requestpost.data;
+  }
+
+  componentDidMount() {
+    this.changeTemp();
     // this.intervalTemp = setInterval(this.changeTemp, 1000)
     // this.changeTemp();
   }
@@ -243,7 +269,7 @@ class Dashboard extends Component {
     return legend;
   }
   render() {
-    
+
     return (
       <div className="content">
         <Grid fluid>
@@ -307,7 +333,7 @@ class Dashboard extends Component {
                 statsIcon="fa fa-history"
                 id="chartHours"
                 title="Temperature and Humidity"
-                category="24 Hours performance"
+                category="X Hours performance"
                 stats="Updated ? minutes ago"
                 content={
                   <div className="ct-chart">
@@ -343,6 +369,9 @@ class Dashboard extends Component {
             {/* <button onClick={this.onLoadFirst}>LOAD</button> */}
             {/* <button onClick={this.changeTemp}>CHANGE</button> */}
             <Col md={4}>
+            <DateTimePicker
+                    defaultValue={new Date()}
+                  />
               <Card
                 statsIcon="fa fa-clock-o"
                 title="Route taken"
