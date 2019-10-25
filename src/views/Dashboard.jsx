@@ -21,6 +21,7 @@ import createPlotlyComponent from "react-plotly.js/factory";*/
 
 import { legendPie, apiSimulationGPS, apiSimulationTemp } from "variables/Variables.jsx";
 import { DateTimePicker } from 'react-widgets'
+import 'react-widgets/dist/css/react-widgets.css';
 import Moment from 'moment'; import momentLocalizer from 'react-widgets-moment';
 Moment.locale('en')
 momentLocalizer()
@@ -147,8 +148,8 @@ class Dashboard extends Component {
     apiTemp = await axios.post("http://54.187.204.12:8080/trk_query", {
       "id_rasp": "1",
       "id_sensors": "2",
-      "start_date": "2019-09-25 18:00:53",
-      "end_date": "2019-10-25 19:48:53"
+      "start_date": "2019-09-25 15:00:53",
+      "end_date": "2019-09-25 21:40:53"
     });
     apiTemp = apiTemp.data;
     console.log("array= ");
@@ -184,8 +185,8 @@ class Dashboard extends Component {
 }
 
   popularArray = x => {
-    if (temperatureArray[0] === 20) {
-      temperatureArray.shift();
+      temperatureArray = [];
+      humidityArray = [];
       for (var i = 1; i <= (x.length - 1); i++) {
         if (x[i].status1 > (x[i - 1].status1 + 10) || x[i].status1 < (x[i - 1].status1 - 10)) {
           temperatureArray.push(x[i].status1);
@@ -202,8 +203,6 @@ class Dashboard extends Component {
         date1 = (x[i].time).slice(16, 25)
         graphX.push(date1);
       }
-    }
-
     tempMaxVar = this.arredondar(Math.max(...temperatureArray),1);
     humidMaxVar = this.arredondar(Math.max(...humidityArray),1);
 
@@ -304,7 +303,7 @@ class Dashboard extends Component {
                     <Col xs={7}>
                       <div className="numbers">
                         <p>Max Temp.</p>
-                        {this.state.temperatureMax} ºC
+                        {this.state.temperatureMax} <h6>ºC</h6>
                       </div>
                     </Col>
                   </Row>
@@ -333,7 +332,7 @@ class Dashboard extends Component {
                 statsIcon="fa fa-history"
                 id="chartHours"
                 title="Temperature and Humidity"
-                category="X Hours performance"
+                category={<DateTimePicker defaultValue={new Date()} />}
                 stats="Updated ? minutes ago"
                 content={
                   <div className="ct-chart">
@@ -369,9 +368,6 @@ class Dashboard extends Component {
             {/* <button onClick={this.onLoadFirst}>LOAD</button> */}
             {/* <button onClick={this.changeTemp}>CHANGE</button> */}
             <Col md={4}>
-            <DateTimePicker
-                    defaultValue={new Date()}
-                  />
               <Card
                 statsIcon="fa fa-clock-o"
                 title="Route taken"
