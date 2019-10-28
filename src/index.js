@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import Login from './layouts/login'
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={props =>
       isAuthenticated() ? (
-        <Component {...props} />
+        <AdminLayout {...props} />
       ) : (
         <Redirect to={{ pathname: "/denied", state: { from: props.location } }} />
       )
@@ -30,8 +30,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/dashboard" />
+      <Route path="/login" exact component={Login} />
+      <PrivateRoute path="/admin" render={props => <AdminLayout {...props} />} />
+      <Redirect from="/" to="/login" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

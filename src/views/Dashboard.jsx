@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { Card } from "components/Card/Card.jsx";
+import { isAuthenticated } from '../service/auth';
 //import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 // import { Tasks } from "components/Tasks/Tasks.jsx";
 /*import {
@@ -111,7 +112,8 @@ class Dashboard extends Component {
       humidityMax: 0,
       temperatureMin: -100,
       humidityMin: -100,
-      graphMount: 0
+      graphMount: 0,
+      dtpValue: "2019-09-25 21:16:53"
     };
     this.changeTemp = this.changeTemp.bind(this);
     this.queryAPIGPS = this.queryAPIGPS.bind(this);
@@ -339,6 +341,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="content">
+        {isAuthenticated() === false ? this.props.history.push('/') : false}
         <Grid fluid>
           <Row>
             <Col lg={3} sm={6}>
@@ -505,6 +508,7 @@ class Dashboard extends Component {
           </Row>
         </Grid>
       </div>
+      
     );
   }
 }

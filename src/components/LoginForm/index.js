@@ -2,7 +2,7 @@ import React from 'react';
 import { Logincontainer } from './styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import logoLogin from '../../images/authentic.svg';
+import logoLogin from './authentic.svg';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import { login, isAuthenticated } from '../../service/auth';
 import axios from "axios";
@@ -21,6 +21,7 @@ class FormLogin extends React.Component {
             RedirectOn: false
         }
         this.handleChangeUid = (evento) => {
+            console.log("change")
             this.setState({
                 uid: evento.target.value
             })
@@ -41,19 +42,22 @@ class FormLogin extends React.Component {
                 "pass": `${password}`
             }
             if (!uid || !password) {
-                toast.warn('Prencha todos os campos para continuar!');
+                toast.warn('Fill all the boxes!');
             } else {
                 try {
-                    const response = await axios.post("http://54.187.204.12:8080/trk_user_query", requestBody);
-                    if (response.data[0].email === `${uid}`) {
-                        login(response.data.email);
+                    let response = await axios.post("http://54.187.204.12:8080/trk_user_query", requestBody);
+                    response = response.data;
+                    console.log(response[0].email)
+                    if (response[0].email === `${uid}`) {
+                        login(response[0].email);
                         this.setState({
                             RedirectOn: true
                         })
                         this.props.history.push('/admin/dashboard');
                     }
                 } catch (err) {
-                    toast.error('Ocorreu um erro ao logar seu usuário!\n Tente novamente!')
+                    toast.error('An error ocurred!\n Check your credentials...')
+                    console.log(err)
                 }
             }
         }
@@ -68,16 +72,16 @@ class FormLogin extends React.Component {
                     <div>
                         <img src={logoLogin} alt="logo" />
                         {this.state.error && this.state.error}
-                        <p className="frase">Trade Security</p>
+                        <p className="frase">TRK Login</p>
                         <form>
-                            <TextField type="number" id="standard-full-width" name="uid" label="CPF" placeholder="Digite seu identificador" helperText="CPF possuem 11 números" fullWidth margin="normal"
+                            <TextField type="txt" id="standard-full-width" name="uid" label="Email" placeholder="Enter your email" helperText="example: testdash@email.com" fullWidth margin="normal"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
                                 value={this.state.uid}
                                 onChange={this.handleChangeUid}
                             />
-                            <TextField type="password" id="standard-password-input" name="password" label="Senha" placeholder="Digite sua senha" helperText="Não compartilhe sua senha!!!" fullWidth margin="normal"
+                            <TextField type="password" id="standard-password-input" name="password" label="Password" placeholder="Enter your password." helperText="" fullWidth margin="normal"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -86,7 +90,6 @@ class FormLogin extends React.Component {
                             />
                             <Button onClick={this.handleSubmit} variant="contained" size="medium" color="primary">Enviar</Button>
                         </form>
-                        <Link to="/register">Não possui conta? Registre-se !!!</Link>
                     </div>
                 </Logincontainer>
                 {this.state.RedirectOn === true ? <Redirect to="/admin/dashboard" /> : null}
