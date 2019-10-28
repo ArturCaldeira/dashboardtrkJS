@@ -11,6 +11,22 @@ import "./assets/css/pe-icon-7-stroke.css";
 
 import AdminLayout from "layouts/Admin.jsx";
 
+import { isAuthenticated } from "./service/auth";
+
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: "/denied", state: { from: props.location } }} />
+      )
+    }
+  />
+);
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>

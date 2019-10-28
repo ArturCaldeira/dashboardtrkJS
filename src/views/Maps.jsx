@@ -11,13 +11,13 @@ const CustomMap = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
       defaultZoom={13}
-      defaultCenter={{ lat: 40.748817, lng: -73.985428 }}
+      defaultCenter={{ lat: -23.574404, lng: -46.623173 }}
       defaultOptions={{
         scrollwheel: false,
         zoomControl: true
       }}
     >
-      <Marker position={{ lat: 40.748817, lng: -73.985428 }} />
+      <Marker position={{ lat: -23.574404, lng: -46.623173 }} />
     </GoogleMap>
   ))
 );
