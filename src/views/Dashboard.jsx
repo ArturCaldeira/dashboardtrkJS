@@ -47,7 +47,7 @@ let apiTemp;
 let tempMaxVar;
 let humidMaxVar;
 let mesDTP;
-let stringRequest = "2019-09-25 21:16:53";
+let stringRequest = "2019-10-25 21:16:53";
 
 const layoutMap = {
   autosize: false,
@@ -113,7 +113,7 @@ class Dashboard extends Component {
       temperatureMin: -100,
       humidityMin: -100,
       graphMount: 0,
-      dtpValue: "2019-09-25 21:16:53"
+      dtpValue: "2020-09-25 21:16:53"
     };
     this.changeTemp = this.changeTemp.bind(this);
     this.queryAPIGPS = this.queryAPIGPS.bind(this);
@@ -186,7 +186,7 @@ class Dashboard extends Component {
       "id_rasp": "1",
       "id_sensors": "2",
       "start_date": stringRequest,
-      "end_date": "2019-09-25 21:44:00"
+      "end_date": "2019-11-25 21:44:00"
     });
     apiTemp = apiTemp.data;
     console.log("datatimepicker= ");
@@ -451,7 +451,7 @@ class Dashboard extends Component {
                 statsIcon="fa fa-history"
                 id="chartHours"
                 title="Temperature and Humidity"
-                category={<DateTimePicker defaultValue={new Date("2019","08","25","21","16")} onChange={e => { this.changeTemp(e) }} />}
+                category={<DateTimePicker defaultValue={new Date("2019","09","25","21","16")} onChange={e => { this.changeTemp(e) }} />}
                 stats="Updated now"
                 content={
                   <div className="ct-chart">
